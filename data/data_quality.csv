@@ -1,0 +1,6 @@
+issue,rows,pct,treatment
+Total transactions,26656314,,-
+Null amounts,105920,0.4,Dropped -- imputing spend corrupts velocity features
+Negative amounts,39950,0.15,"Refunds -- excluded from spend, kept as a feature"
+Null categories,53326,0.2,Labelled 'unknown' -- amount is still valid
+Duplicate IDs,26673,0.1,Deduplicated on transaction_id

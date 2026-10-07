@@ -1,0 +1,6 @@
+tier,tier_label,customers,avg_net_value,avg_predicted_value,total_net_value_cr
+1,Priority 1 -- Acquire,36178,2117.0,3359.0,7.66
+2,Priority 2 -- Acquire & monitor,32905,7936.0,6556.0,26.11
+3,Priority 3 -- Acquire on lean offers,49116,-335.0,-295.0,-1.65
+4,Watch list,15741,-161.0,-253.0,-0.25
+5,Do not target,66060,-2950.0,-2952.0,-19.49

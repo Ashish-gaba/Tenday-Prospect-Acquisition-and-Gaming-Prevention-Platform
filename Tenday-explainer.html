@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TenDay — Prospect Acquisition &amp; Gaming Prevention Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Public+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FBFAF7;
+  --ink:#1C1E2B;
+  --ink-soft:#4A4D5C;
+  --muted:#807C73;
+  --rule:#DEDACE;
+  --gold:#C8952F;
+  --gold-wash:#F6EEDD;
+  --loss:#A8322D;
+  --gain:#2E6B4F;
+  --panel:#F3F1EA;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Public Sans",system-ui,sans-serif;
+  font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.15;margin:0}
+h1{font-size:clamp(2.4rem,6vw,4rem);letter-spacing:-.02em}
+h2{font-size:clamp(1.7rem,3.4vw,2.5rem);letter-spacing:-.015em}
+h3{font-size:1.22rem;letter-spacing:-.01em}
+p{margin:0 0 1.1em}
+a{color:var(--ink)}
+
+/* ---------- shell ---------- */
+.shell{display:grid;grid-template-columns:220px minmax(0,1fr);gap:0;max-width:1180px;margin:0 auto}
+.rail{position:sticky;top:0;height:100vh;padding:2.6rem 1.2rem 2rem 1.4rem;overflow-y:auto;border-right:1px solid var(--rule)}
+.rail-title{font-family:"Fraunces",serif;font-size:1.05rem;font-weight:700;margin-bottom:.15rem}
+.rail-sub{font-size:.76rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.4}
+.rail ol{list-style:none;margin:0;padding:0;counter-reset:ch}
+.rail li{counter-increment:ch;margin-bottom:.1rem}
+.rail a{
+  display:block;padding:.4rem .5rem .4rem 1.9rem;position:relative;
+  font-size:.83rem;color:var(--ink-soft);text-decoration:none;border-radius:4px;line-height:1.35;
+}
+.rail a::before{
+  content:counter(ch);position:absolute;left:.45rem;top:.42rem;
+  font-size:.68rem;color:var(--muted);font-variant-numeric:tabular-nums;
+}
+.rail a:hover{background:var(--panel);color:var(--ink)}
+.rail a.on{background:var(--gold-wash);color:var(--ink);font-weight:500}
+.rail a.on::before{color:var(--gold)}
+main{padding:0 clamp(1.1rem,4vw,3.4rem) 8rem}
+
+/* ---------- hero ---------- */
+.hero{padding:5rem 0 3rem;border-bottom:1px solid var(--rule);margin-bottom:3.5rem}
+.hero p.lede{font-size:1.16rem;color:var(--ink-soft);max-width:62ch;margin-top:1.4rem}
+.hero .kicker{font-family:"Fraunces",serif;font-size:1rem;color:var(--gold);margin-bottom:.9rem}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));
+  gap:1px;background:var(--rule);border:1px solid var(--rule);margin:2.4rem 0 0}
+.kpi{background:var(--paper);padding:1.1rem 1.2rem}
+.kpi .l{font-size:.75rem;color:var(--muted);margin-bottom:.3rem}
+.kpi .v{font-family:"Fraunces",serif;font-size:1.85rem;font-weight:600;line-height:1.05}
+.kpi .s{font-size:.77rem;color:var(--muted);margin-top:.28rem;line-height:1.42}
+.kpi.bad .v{color:var(--loss)} .kpi.good .v{color:var(--gain)}
+.alert{background:#FCF4F3;border-left:3px solid var(--loss);
+  padding:1rem 1.15rem;margin:1.6rem 0;max-width:66ch;font-size:.95rem}
+.heat{display:grid;grid-template-columns:auto repeat(3,1fr);gap:3px;margin:1.7rem 0;
+  font-size:.84rem;max-width:74ch}
+.heat .hh{color:var(--muted);font-size:.74rem;padding:.3rem .5rem;align-self:end}
+.heat .rl{color:var(--ink-soft);padding:.55rem .6rem .55rem 0;white-space:nowrap}
+.heat .cell{padding:.55rem .6rem;text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.steps{counter-reset:st;margin:1.8rem 0}
+.stp{counter-increment:st;display:grid;grid-template-columns:2.4rem 1fr;gap:1rem;
+  padding:1.15rem 0;border-bottom:1px solid var(--rule);max-width:72ch}
+.stp::before{content:counter(st,decimal-leading-zero);font-family:"Fraunces",serif;
+  color:var(--gold);font-size:.95rem;padding-top:.2rem}
+.stp .t{font-weight:700;margin-bottom:.25rem}
+.stp .d{color:var(--ink-soft);font-size:.95rem}
+
+/* ---------- sections ---------- */
+section{padding-top:3.2rem;margin-bottom:1rem;scroll-margin-top:1.5rem}
+section > p, section > ul, section > ol{max-width:66ch}
+.sec-head{display:flex;align-items:baseline;gap:.85rem;margin-bottom:1.3rem}
+.sec-num{font-family:"Fraunces",serif;font-size:.95rem;color:var(--gold);flex:none;padding-top:.2rem}
+.plain{
+  background:var(--panel);border-left:3px solid var(--gold);
+  padding:1rem 1.15rem;margin:1.6rem 0;max-width:66ch;font-size:.97rem
+}
+.plain strong{font-weight:700}
+ul,ol{padding-left:1.15rem}
+li{margin-bottom:.5rem}
+code{
+  font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.85em;
+  background:var(--panel);padding:.12em .38em;border-radius:3px
+}
+pre{
+  background:var(--ink);color:#E8E6DE;padding:1rem 1.15rem;border-radius:5px;
+  overflow-x:auto;font-size:.82rem;line-height:1.6;max-width:66ch
+}
+pre code{background:none;padding:0;color:inherit}
+.cap{font-size:.83rem;color:var(--muted);max-width:60ch;margin-top:.6rem}
+
+/* ---------- jargon ---------- */
+.j{
+  border:none;background:var(--gold-wash);color:var(--ink);
+  border-bottom:1.5px solid var(--gold);cursor:pointer;
+  font:inherit;font-size:inherit;padding:0 .18em;border-radius:2px
+}
+.j:hover,.j:focus-visible{background:#EFE0BE}
+.j-def{
+  display:none;background:#fff;border:1px solid var(--rule);
+  border-left:3px solid var(--gold);padding:.85rem 1rem;margin:.7rem 0 1.2rem;
+  font-size:.93rem;max-width:64ch
+}
+.j-def.open{display:block}
+
+/* ---------- tables ---------- */
+table{border-collapse:collapse;width:100%;max-width:100%;font-size:.87rem;margin:1.5rem 0}
+th,td{text-align:left;padding:.5rem .65rem;border-bottom:1px solid var(--rule)}
+th{font-weight:700;font-size:.76rem;color:var(--muted)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.hi td{background:var(--gold-wash)}
+.neg{color:var(--loss)}
+.pos{color:var(--gain)}
+.tw{overflow-x:auto;margin:1.5rem 0}
+.tw table{margin:0}
+
+/* ---------- simulator ---------- */
+.sim{border:1px solid var(--rule);background:#fff;padding:1.5rem;margin:2rem 0;border-radius:5px}
+.sim-top{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;margin-bottom:1.2rem}
+.sim-day{font-family:"Fraunces",serif;font-size:2.6rem;line-height:1;font-variant-numeric:tabular-nums}
+.sim-day span{font-size:.9rem;font-family:"Public Sans",sans-serif;color:var(--muted);margin-left:.4rem}
+input[type=range]{width:100%;accent-color:var(--gold);height:26px}
+.sim-cards{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.3rem}
+.card{border:1px solid var(--rule);padding:.95rem 1rem;border-radius:4px}
+.card.gam{border-color:#E3C0BE;background:#FCF4F3}
+.card.stead{border-color:#C3D8CC;background:#F3F8F5}
+.card h4{margin:0 0 .55rem;font-size:.95rem;font-family:"Fraunces",serif;font-weight:600}
+.stat{display:flex;justify-content:space-between;font-size:.85rem;padding:.16rem 0}
+.stat b{font-variant-numeric:tabular-nums;font-weight:500}
+.badge{display:inline-block;font-size:.72rem;padding:.15rem .5rem;border-radius:99px;margin-top:.5rem}
+.badge.q{background:#F2E3C4;color:#6B5313}
+.badge.r{background:#E9D5D3;color:#7A2C28}
+.badge.d{background:#DFDCD4;color:#57544D}
+.badge.no{background:#EDEBE4;color:var(--muted)}
+media(max-width:640px){.sim-cards{grid-template-columns:1fr}}
+
+/* ---------- horizon toggle ---------- */
+.hz{border:1px solid var(--rule);background:#fff;border-radius:5px;padding:1.4rem;margin:2rem 0}
+.hz-btns{display:flex;gap:.5rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.hz-btns button{
+  font:inherit;font-size:.85rem;padding:.45rem .9rem;cursor:pointer;
+  background:var(--panel);border:1px solid var(--rule);border-radius:4px;color:var(--ink-soft)
+}
+.hz-btns button.on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.hz-body{min-height:150px}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin:.7rem 0 1rem}
+.chip{font-size:.75rem;padding:.2rem .55rem;border-radius:3px;background:var(--panel);color:var(--ink-soft)}
+.chip.beh{background:#E4EDF5;color:#1F4A6B}
+.bar-row{display:flex;align-items:center;gap:.7rem;margin:.45rem 0;font-size:.83rem}
+.bar-lab{width:130px;flex:none;color:var(--muted)}
+.bar-track{flex:1;height:16px;background:var(--panel);border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;background:var(--gold);transition:width .5s ease}
+.bar-val{width:52px;text-align:right;font-variant-numeric:tabular-nums}
+
+/* ---------- misc ---------- */
+.svg-wrap{margin:2rem 0;max-width:100%}
+svg{max-width:100%;height:auto;display:block}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin:1.8rem 0}
+media(max-width:760px){.two{grid-template-columns:1fr}}
+.finding{border-top:2px solid var(--ink);padding-top:1rem;margin:2.2rem 0}
+.finding h3{margin-bottom:.5rem}
+footer{border-top:1px solid var(--rule);margin-top:5rem;padding-top:2rem;font-size:.86rem;color:var(--muted);max-width:66ch}
+media(max-width:860px){
+  .shell{grid-template-columns:1fr}
+  .rail{position:static;height:auto;border-right:none;border-bottom:1px solid var(--rule);padding:1.4rem 1.2rem}
+  .rail ol{display:flex;flex-wrap:wrap;gap:.2rem}
+  .rail li{margin:0}
+  .hero{padding-top:2.5rem}
+}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<nav class="rail" aria-label="Contents">
+  <div class="rail-title">TenDay</div>
+  <div class="rail-sub">Prospect acquisition &amp; gaming prevention platform</div>
+  <ol>
+    <li><a href="#s0" class="on">The business problem</a></li>
+    <li><a href="#s1">What this platform is</a></li>
+    <li><a href="#s2">Two customers</a></li>
+    <li><a href="#s3">The words that keep coming up</a></li>
+    <li><a href="#s4">Building the data</a></li>
+    <li><a href="#s5">Turning 27M rows into 200k</a></li>
+    <li><a href="#s6">Grouping people</a></li>
+    <li><a href="#s7">The model that failed</a></li>
+    <li><a href="#s8">The main findings</a></li>
+    <li><a href="#s10">Turning it into a decision</a></li>
+    <li><a href="#s11">Letting an AI write it up</a></li>
+    <li><a href="#s12">What we recommend</a></li>
+    <li><a href="#s13">What this cannot tell you</a></li>
+  </ol>
+</nav>
+
+<main>
+
+<header class="hero">
+  <div class="kicker">200,000 cardholders &middot; 26.7 million transactions &middot; twelve months</div>
+  <h1>TenDay</h1>
+  <p class="lede">Prospect Acquisition &amp; Gaming Prevention Platform.<br/>
+  An end-to-end analysis of where welcome-bonus spend goes, who returns it, and critically — how early
+  the difference becomes visible.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="l">Spent on welcome bonuses</div><div class="v">&#8377;51 cr</div>
+      <div class="s">across eight campaigns</div></div>
+    <div class="kpi bad"><div class="l">Claimed by bonus-seekers</div><div class="v">&#8377;17.7 cr</div>
+      <div class="s">35% of the budget, from 14% of customers</div></div>
+    <div class="kpi bad"><div class="l">Value they returned</div><div class="v">&minus;&#8377;7.5 cr</div>
+      <div class="s">&minus;&#8377;2,676 each, on average</div></div>
+    <div class="kpi good"><div class="l">What one month of data adds</div><div class="v">9% &rarr; 66%</div>
+      <div class="s">share of customer value we can explain</div></div>
+  </div>
+</header>
+
+<!-- ============ 0 ============ -->
+<section id="s0">
+  <div class="sec-head"><div class="sec-num">01</div><h2>The business problem</h2></div>
+
+  <p>A card issuer pays a welcome bonus and a channel cost for every customer it acquires.
+  Most repay it. Some take the bonus and go dormant &mdash; and they are invisible in the
+  signup numbers, because a gamer looks exactly like a successful acquisition until months
+  later.</p>
+
+  <p>The same question arrives at three moments, with different information available at
+  each:</p>
+
+  <ul>
+    <li><strong>At acquisition</strong> &mdash; only the channel, the offer and applicant
+    details are known. Can bad outcomes be predicted before any money is spent?</li>
+    <li><strong>In the first 30 days</strong> &mdash; early behaviour becomes visible. Can
+    eventual value be projected early enough to act?</li>
+    <li><strong>Over the full year</strong> &mdash; the outcome is clear. Who gamed the
+    offer, what was each group worth, and where should the next rupee go?</li>
+  </ul>
+
+  <div class="plain">
+    Tenday answers all three, and establishes where along that timeline the signal
+    actually lives.
+  </div>
+</section>
+
+<!-- ============ 1 ============ -->
+<section id="s1">
+  <div class="sec-head"><div class="sec-num">02</div><h2>What this platform is</h2></div>
+
+  <p>Banks give you money to sign up for a credit card. "Spend ₹50,000 in your
+  first three months and we'll give you ₹5,000 cashback." That's a
+  <strong>welcome bonus</strong>.</p>
+
+  <p>The bank is making a bet. It costs them real money — the ₹5,000 bonus, plus
+  maybe ₹1,500 they paid Google or an affiliate to put the ad in front of you.
+  So roughly ₹6,500 out the door before you've spent a rupee. They're betting
+  you'll use the card for years and they'll earn that back through the small
+  fee they collect on every purchase you make.</p>
+
+  <p>For most people, that bet works out. For some people, it doesn't.</p>
+
+  <div class="plain">
+    <strong>The problem in one sentence:</strong> some people sign up purely for
+    the bonus. They spend fast to hit the target, claim the ₹5,000, and never
+    use the card again. The bank paid ₹6,500 and got almost nothing back. This
+    is called <em>gaming the offer</em>, and the bank can't tell these people
+    apart from real customers until months later.
+  </div>
+
+  <p>The platform answers three questions about that:</p>
+
+  <ol>
+    <li><strong>Who did it, and what did it cost?</strong></li>
+    <li><strong>Could we have seen it coming — and how early?</strong></li>
+    <li><strong>So what should the bank change?</strong></li>
+  </ol>
+
+  <p>That third one is the point. A project that just finds bad customers is a
+  list. A project that says "here's what to do differently" is analysis.</p>
+</section>
+
+<!-- ============ 2 ============ -->
+<section id="s2">
+  <div class="sec-head"><div class="sec-num">03</div><h2>Two customers, side by side</h2></div>
+
+  <p>Before any code, get the intuition. Below are two people who both signed up
+  for the same offer on the same day: <strong>spend ₹50,000, get ₹5,000
+  back</strong>.</p>
+
+  <p>Drag the slider forward through their first year and watch what happens.</p>
+
+  <div class="sim">
+    <div class="sim-top">
+      <div>
+        <div class="sim-day" id="dayNum">0<span>days since signup</span></div>
+      </div>
+      <div style="font-size:.82rem;color:var(--muted);max-width:30ch">
+        Offer: spend ₹50,000 → receive ₹5,000.<br>Bank spent ₹1,500 to acquire each.
+      </div>
+    </div>
+
+    <input type="range" id="daySlider" min="0" max="365" value="0"
+           aria-label="Days since signup">
+
+    <div class="svg-wrap" style="margin:1.2rem 0 0">
+      <svg viewBox="0 0 700 210" role="img" aria-label="Cumulative spend over time for two customers">
+        <line x1="52" y1="175" x2="685" y2="175" stroke="#DEDACE" stroke-width="1"/>
+        <line x1="52" y1="14" x2="52" y2="175" stroke="#DEDACE" stroke-width="1"/>
+        <line id="threshLine" x1="52" y1="88" x2="685" y2="88"
+              stroke="#C8952F" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="58" y="83" font-size="10" fill="#C8952F" font-family="Public Sans">₹50,000 target</text>
+        <path id="pathGam" fill="none" stroke="#A8322D" stroke-width="2.2"/>
+        <path id="pathSte" fill="none" stroke="#2E6B4F" stroke-width="2.2"/>
+        <circle id="dotGam" r="4" fill="#A8322D"/>
+        <circle id="dotSte" r="4" fill="#2E6B4F"/>
+        <line id="nowLine" x1="52" y1="14" x2="52" y2="175" stroke="#1C1E2B" stroke-width="1" opacity=".35"/>
+        <text x="52" y="192" font-size="10" fill="#807C73" font-family="Public Sans">day 0</text>
+        <text x="360" y="192" font-size="10" fill="#807C73" font-family="Public Sans">day 180</text>
+        <text x="648" y="192" font-size="10" fill="#807C73" font-family="Public Sans">day 365</text>
+        <text x="8" y="18" font-size="10" fill="#807C73" font-family="Public Sans">₹90k</text>
+        <text x="16" y="178" font-size="10" fill="#807C73" font-family="Public Sans">₹0</text>
+      </svg>
+    </div>
+
+    <div class="sim-cards">
+      <div class="card gam">
+        <h4>Priya — the gamer</h4>
+        <div class="stat"><span>Total spent</span><b id="gSpend">₹0</b></div>
+        <div class="stat"><span>Days since last purchase</span><b id="gDorm">0</b></div>
+        <div class="stat"><span>Spend on gift cards &amp; transfers</span><b id="gLiq">—</b></div>
+        <div id="gBadges"><span class="badge no">not yet qualified</span></div>
+      </div>
+      <div class="card stead">
+        <h4>Rohan — the real customer</h4>
+        <div class="stat"><span>Total spent</span><b id="sSpend">₹0</b></div>
+        <div class="stat"><span>Days since last purchase</span><b id="sDorm">0</b></div>
+        <div class="stat"><span>Spend on gift cards &amp; transfers</span><b id="sLiq">—</b></div>
+        <div id="sBadges"><span class="badge no">not yet qualified</span></div>
+      </div>
+    </div>
+
+    <p class="cap" id="simNarr" style="margin-top:1.1rem">Both just signed up.
+    Right now they look identical to the bank.</p>
+  </div>
+
+  <div class="plain">
+    <strong>That's the whole project in one picture.</strong> Priya hits the
+    target in about 10 days and claims her ₹5,000 three days later, then stops.
+    Rohan takes about six months to get there and keeps using the card
+    afterwards. Everything in this platform exists to spot that difference
+    automatically, across 200,000 people, and to work out how early it becomes
+    visible.
+  </div>
+
+  <p>Notice the second thing that gives Priya away: <em>where</em> she spends.
+  Gift cards, money transfers, wholesale clubs. These are close to cash — you
+  buy a ₹10,000 gift card, it counts toward your spending target, and you still
+  have ₹10,000 of value. It's the fastest way to hit a target without actually
+  spending. Real customers spread their money across groceries, fuel, dining,
+  travel.</p>
+</section>
+
+<!-- ============ 3 ============ -->
+<section id="s3">
+  <div class="sec-head"><div class="sec-num">04</div><h2>The words that keep coming up</h2></div>
+
+  <p>Click any term for a plain explanation. These are the five that matter;
+  the rest is detail.</p>
+
+  <p>The pipeline is built on
+  <button class="j" data-t="spark">Spark</button>,
+  running on <button class="j" data-t="dbx">Databricks</button>,
+  storing data in <button class="j" data-t="delta">Delta Lake</button>,
+  writing the code in <button class="j" data-t="pyspark">PySpark</button>,
+  and the reason for all of it is a thing called
+  <button class="j" data-t="big">big data</button>.</p>
+
+  <div class="j-def" id="d-spark">
+    <strong>Spark</strong> is a tool for doing calculations on data that's too
+    big for one computer. Instead of one machine chewing through 27 million
+    rows, Spark splits the rows across many machines, each does its share, and
+    the results get combined. Think of counting a warehouse of boxes: one person
+    takes a week, twenty people take an afternoon. Spark is the manager who
+    divides up the aisles and adds up the totals.
+  </div>
+  <div class="j-def" id="d-dbx">
+    <strong>Databricks</strong> is a website that rents you those machines and
+    gives you a notebook to type into — like Jupyter, but the code runs on a
+    cluster instead of a laptop. This ran on the free tier, with no servers to set
+    up; that's the whole product.
+  </div>
+  <div class="j-def" id="d-delta">
+    <strong>Delta Lake</strong> is a file format with a safety net. Ordinary
+    data files have no rules: if a job crashes halfway through writing, you're
+    left with half a file and no way to know. Delta keeps a log of every change,
+    so a write either fully happens or doesn't happen at all — and you can go
+    back and look at yesterday's version. It's what makes a folder of files
+    behave like a proper database table.
+  </div>
+  <div class="j-def" id="d-pyspark">
+    <strong>PySpark</strong> is just Python code that talks to Spark.
+    <code>df.groupBy("customer_id").agg(...)</code> looks almost exactly like
+    pandas — the difference is that pandas works in one machine's memory while
+    PySpark ships the work out to a cluster.
+  </div>
+  <div class="j-def" id="d-big">
+    <strong>Big data</strong> just means "won't fit comfortably in one
+    machine's memory". There's no magic number. These 26.7 million transactions
+    were about 4.5 GB — awkward on a laptop, fine on a cluster. And worth being
+    precise about: when measured, pandas actually <em>could</em> have handled it.
+    Spark was chosen because the approach keeps working at ten times the size,
+    not because pandas fell over.
+  </div>
+
+  <p>Two more worth knowing:</p>
+
+  <p>A <button class="j" data-t="win">window function</button> and a
+  <button class="j" data-t="clust">clustering algorithm</button>.</p>
+
+  <div class="j-def" id="d-win">
+    <strong>Window function</strong> — you already know this one from SQL. It's
+    <code>SUM(amount) OVER (PARTITION BY customer_id ORDER BY date)</code>:
+    a running total, calculated separately for each customer, in date order.
+    That single idea is how the platform finds the day each customer crossed their
+    spending target. PySpark spells it slightly differently, but it's the same
+    thing you'd write in Postgres.
+  </div>
+  <div class="j-def" id="d-clust">
+    <strong>Clustering</strong> means letting the computer find natural groups
+    without telling it what to look for. You give it numbers about each
+    customer — how much they spend, how spread out it is, how fast they hit the
+    target — and it sorts them into piles where the people in each pile resemble
+    each other. You don't say "find the gamers". You say "find groups", then
+    look at each group and name it.
+  </div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section id="s4">
+  <div class="sec-head"><div class="sec-num">05</div><h2>Step one: building the data</h2></div>
+
+  <p>Real bank transaction data doesn't exist publicly — it's some of the most
+  private data there is. So the first step was a program that generates a realistic bank.</p>
+
+  <p>This sounds like a shortcut. It isn't, and here's why it's actually
+  <em>better</em> for this question:</p>
+
+  <ul>
+    <li><strong>The size is controlled.</strong> The analysis needed enough rows that
+    distributed processing was a genuine choice: 200,000 customers, producing 26.7
+    million transactions.</li>
+    <li><strong>The right answer is known.</strong> The generator decided in advance
+    that 14% of customers would behave like gamers, so every method could be graded
+    against the truth. With real data nobody knows the answer, so nothing can be
+    verified.</li>
+  </ul>
+
+  <div class="plain">
+    <strong>The trap avoided.</strong> Generating people and then writing a rule
+    that finds exactly those people proves nothing. So the generator deliberately
+    makes the groups overlap and blurry. Early churners lose interest and go quiet, which
+    <em>looks</em> like gaming. Some gamers behave mildly. The models have to do
+    real work to separate them.
+  </div>
+
+  <p>The generator makes five tables:</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>Table</th><th>One row is…</th><th class="n">Rows</th></tr></thead>
+    <tbody>
+      <tr><td><code>campaigns</code></td><td>an offer the bank ran ("₹5,000 for ₹50,000 spend")</td><td class="n">8</td></tr>
+      <tr><td><code>customers</code></td><td>a person, and only what's known on signup day</td><td class="n">200,000</td></tr>
+      <tr><td><code>transactions</code></td><td>a single purchase</td><td class="n">26,656,314</td></tr>
+      <tr><td><code>redemptions</code></td><td>when someone hit the target and claimed the bonus</td><td class="n">200,000</td></tr>
+      <tr class="hi"><td><code>hidden_labels</code></td><td>the truth — who was really a gamer</td><td class="n">200,000</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>That last table is the answer key, and it stayed in a sealed envelope. It was
+  never fed into a model &mdash; only opened at the end, to mark the work. Mixed into
+  the inputs, it would have let the models read the answers off the back of the
+  book.</p>
+
+  <h3 style="margin-top:2rem">The data was made dirty on purpose</h3>
+
+  <p>Real data is never clean, so the generator broke some of it:</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>What's wrong</th><th class="n">Rows</th><th>How it was handled</th></tr></thead>
+    <tbody>
+      <tr><td>Amount is missing</td><td class="n">105,920</td><td>Deleted the row. A guessed amount would poison the running totals.</td></tr>
+      <tr><td>Amount is negative</td><td class="n">39,950</td><td>These are refunds, not errors. Kept them, but counted separately from spending.</td></tr>
+      <tr><td>Category is missing</td><td class="n">53,326</td><td>Labelled "unknown" and kept the row — the amount is still perfectly good.</td></tr>
+      <tr><td>The same purchase recorded twice</td><td class="n">26,673</td><td>Removed duplicates by transaction ID.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Each of those is a decision that can be defended. "Dropped the nulls" is a
+  shrug. "Dropped rather than imputed, because imputed spend would corrupt the
+  cumulative-spend measure the whole detection depends on" is a reason.</p>
+</section>
+
+<!-- ============ 5 ============ -->
+<section id="s5">
+  <div class="sec-head"><div class="sec-num">06</div><h2>Step two: turning 27 million rows into 200,000</h2></div>
+
+  <p>There is one row per purchase. But the question is about <em>people</em>,
+  not purchases. So everything is squashed down: 27 million transactions become
+  200,000 rows, one per customer, with columns describing how that person
+  behaves.</p>
+
+  <p>This is just <code>GROUP BY customer_id</code> — the same idea as in any
+  database, running on a cluster.</p>
+
+  <div class="two">
+    <div>
+      <h3 style="font-size:1rem;margin-bottom:.6rem">The familiar SQL</h3>
+      <pre><code>SELECT
+  customer_id,
+  SUM(amount)  AS total_spend,
+  COUNT(*)     AS txn_count,
+  MAX(day)     AS last_active_day
+FROM transactions
+GROUP BY customer_id</code></pre>
+    </div>
+    <div>
+      <h3 style="font-size:1rem;margin-bottom:.6rem">The PySpark equivalent</h3>
+      <pre><code>txns.groupBy("customer_id").agg(
+    F.sum("amount").alias("total_spend"),
+    F.count("*").alias("txn_count"),
+    F.max("day").alias("last_active_day"),
+)</code></pre>
+    </div>
+  </div>
+
+  <p class="cap">Same operation. Different spelling. This is most of what
+  "learning PySpark" actually means.</p>
+
+  <h3 style="margin-top:2.2rem">The columns built, and why each one matters</h3>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>Column</th><th>In plain words</th><th>Why it catches gamers</th></tr></thead>
+    <tbody>
+      <tr class="hi"><td><code>days_to_qualify</code></td><td>How many days until they hit the spending target</td><td><strong>The strongest signal.</strong> Gamers: 10 days. Everyone else: 96–317.</td></tr>
+      <tr class="hi"><td><code>redemption_lag</code></td><td>Days between hitting the target and claiming the money</td><td>Gamers: 2.5 days. Everyone else: ~46. They're waiting for it.</td></tr>
+      <tr><td><code>liquid_share</code></td><td>Share of spending on gift cards, transfers, wholesale clubs</td><td>Gamers: 48%. Everyone else: 23%. Near-cash spending.</td></tr>
+      <tr><td><code>category_hhi</code></td><td>How concentrated spending is in a few categories</td><td>Gamers repeat the same trick. Real people spread out.</td></tr>
+      <tr><td><code>first30_spend_share</code></td><td>Share of the year's spending done in month one</td><td>Gamers: 78%. Real customers: 6%.</td></tr>
+      <tr><td><code>dormancy_days</code></td><td>Days of silence at the end</td><td>Gamers go quiet after claiming — but so do people who just lost interest.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="plain">
+    <strong>Why <code>days_to_qualify</code> needed a window function.</strong>
+    To know when someone crossed ₹50,000 you need a running total of their
+    spending in date order, then the first day it goes over. That's
+    <code>SUM(...) OVER (PARTITION BY customer_id ORDER BY day)</code>. It's the
+    one genuinely non-trivial piece of the pipeline, and it produced the single
+    most useful measure in the analysis.
+  </div>
+
+  <h3 style="margin-top:2.2rem">The one clever bit: three separate versions</h3>
+
+  <p>Here's the idea that makes this more than a standard analysis. The same
+  features are built <strong>three times over three different time
+  windows</strong>:</p>
+
+  <div class="svg-wrap">
+    <svg viewBox="0 0 700 190" role="img" aria-label="Three information horizons">
+      <text x="0" y="16" font-size="12" font-family="Public Sans" fill="#807C73">What the bank knows, and when</text>
+      <line x1="60" y1="150" x2="660" y2="150" stroke="#DEDACE" stroke-width="1.5"/>
+      <circle cx="60" cy="150" r="5" fill="#1C1E2B"/>
+      <circle cx="110" cy="150" r="5" fill="#C8952F"/>
+      <circle cx="660" cy="150" r="5" fill="#2E6B4F"/>
+      <text x="46" y="172" font-size="11" font-family="Public Sans" fill="#4A4D5C">day 0</text>
+      <text x="94" y="172" font-size="11" font-family="Public Sans" fill="#4A4D5C">day 30</text>
+      <text x="638" y="172" font-size="11" font-family="Public Sans" fill="#4A4D5C">day 365</text>
+
+      <rect x="60" y="40" width="50" height="24" fill="#EDEBE4"/>
+      <text x="122" y="56" font-size="12" font-family="Public Sans" fill="#1C1E2B">
+        <tspan font-weight="700">Layer 1</tspan> — signup form only. No behaviour at all.</text>
+
+      <rect x="60" y="76" width="50" height="24" fill="#F2E3C4"/>
+      <rect x="110" y="76" width="0" height="24" fill="#F2E3C4"/>
+      <text x="122" y="92" font-size="12" font-family="Public Sans" fill="#1C1E2B">
+        <tspan font-weight="700">Layer 2</tspan> — plus the first 30 days of spending.</text>
+
+      <rect x="60" y="112" width="600" height="24" fill="#D6E5DB"/>
+      <text x="122" y="128" font-size="12" font-family="Public Sans" fill="#1C1E2B">
+        <tspan font-weight="700">Layer 3</tspan> — the whole year. Hindsight.</text>
+    </svg>
+  </div>
+
+  <p>Layer 1 uses only what's on the application form — which channel they came
+  from, which offer, their age band, income band, credit limit. Nothing about
+  spending, because on day zero nobody has spent anything.</p>
+
+  <p>Layer 2 adds the first 30 days. Layer 3 sees the whole year.</p>
+
+  <p>The rule enforced everywhere: <strong>a layer may only use information
+  that genuinely existed at that point in time.</strong> Every behavioural column
+  is named <code>d30_</code> or <code>full_</code> so a mistake is visible at a
+  glance. A <code>full_</code> column appearing in a Layer 2 model would mean
+  letting the model see the future — and the entire comparison would be
+  meaningless.</p>
+</section>
+
+<!-- ============ 6 ============ -->
+<section id="s6">
+  <div class="sec-head"><div class="sec-num">07</div><h2>Step three: sorting people into groups</h2></div>
+
+  <p>That leaves 200,000 rows of numbers. An algorithm called
+  <strong>K-Means</strong> sorts them into piles of similar people.</p>
+
+  <p>K-Means works like this: pick how many piles you want (that's the "k"),
+  scatter that many markers randomly across the data, assign each person to
+  their nearest marker, move each marker to the centre of the people assigned
+  to it, repeat until nothing moves. That's the whole algorithm.</p>
+
+  <p>Two practical things had to be right:</p>
+
+  <p><strong>Scaling.</strong> K-Means measures distance. Total spend runs into
+  the hundreds of thousands; a share is between 0 and 1. Without rescaling
+  everything onto a comparable footing, spend would drown out everything else
+  and the groups would just be "spent a lot" versus "spent a little". The money
+  columns are also log-transformed because a few enormous spenders would
+  otherwise distort every boundary.</p>
+
+  <p><strong>Choosing k.</strong> There's a standard score called silhouette
+  that says how tidy the groups are. It preferred k=4. We used k=6 anyway.</p>
+
+  <div class="plain">
+    <strong>This is the most important judgement call in the analysis.</strong> At low k, the algorithm
+    lumped gamers together with early churners — because both go quiet and both
+    spend early. Mathematically tidy, operationally useless: you can't act on a
+    group that's half innocent people. At k=6 they separate, because
+    <code>days_to_qualify</code> pulls them apart (10 days versus 96).
+    <br><br>
+    The line to say: <em>"I chose k on business separability rather than
+    silhouette, because the silhouette-optimal k merged the segment I was trying
+    to isolate with its nearest look-alike."</em>
+  </div>
+
+  <p>The six groups, once read back and given names:</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>Group</th><th class="n">People</th><th class="n">Days to qualify</th><th class="n">Gift cards</th><th class="n">Worth to bank</th></tr></thead>
+    <tbody>
+      <tr><td><strong>High-Value Core</strong><br><span style="color:var(--muted);font-size:.8rem">spend a lot, stay for years</span></td><td class="n">84,517</td><td class="n">154</td><td class="n">23%</td><td class="n pos">+₹3,154</td></tr>
+      <tr><td><strong>Casual Regulars</strong><br><span style="color:var(--muted);font-size:.8rem">small but genuine</span></td><td class="n">45,120</td><td class="n">261</td><td class="n">23%</td><td class="n neg">−₹709</td></tr>
+      <tr><td><strong>Early Churners</strong><br><span style="color:var(--muted);font-size:.8rem">lost interest</span></td><td class="n">27,718</td><td class="n">96</td><td class="n">23%</td><td class="n neg">−₹708</td></tr>
+      <tr><td><strong>Minimal Engagers</strong><br><span style="color:var(--muted);font-size:.8rem">barely used the card</span></td><td class="n">9,734</td><td class="n">never</td><td class="n">23%</td><td class="n neg">−₹1,133</td></tr>
+      <tr><td><strong>Borderline Opportunists</strong><br><span style="color:var(--muted);font-size:.8rem">the ambiguous ones</span></td><td class="n">5,040</td><td class="n">24</td><td class="n">26%</td><td class="n neg">−₹1,091</td></tr>
+      <tr class="hi"><td><strong>Bonus Opportunists</strong><br><span style="color:var(--muted);font-size:.8rem">the gamers</span></td><td class="n">27,871</td><td class="n">10</td><td class="n">48%</td><td class="n neg">−₹2,676</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Then the sealed envelope was opened. The Bonus Opportunists group was
+  <strong>99.8% actual gamers</strong>, and it caught 97.7% of all the gamers in
+  the book. The algorithm found them without ever being told what a gamer was.</p>
+</section>
+
+<!-- ============ 7 ============ -->
+<section id="s7">
+  <div class="sec-head"><div class="sec-num">08</div><h2>Step four: the model that didn't work</h2></div>
+
+  <p>The obvious way to catch bad behaviour is <strong>anomaly detection</strong>
+  — find the weird ones. We tested a method called Isolation Forest, which hunts
+  for data points that are easy to separate from everyone else.</p>
+
+  <p>It did badly. Out of everyone it flagged, only <strong>43%</strong> were
+  actually gamers. The behavioural grouping got <strong>99.8%</strong>.</p>
+
+  <div class="plain">
+    <strong>Why it lost, and this is the interesting part.</strong> Anomaly
+    detection assumes bad things are <em>rare and strange</em>. But gaming isn't
+    rare — it's 14% of the book — and gamers all behave in the same way as each
+    other. They're not oddballs. They're a crowd.
+    <br><br>
+    Meanwhile the genuinely odd customers are the <em>best</em> ones: people
+    spending ₹406,000 a year really are statistical outliers. So the model kept
+    flagging the bank's most profitable customers as suspicious.
+  </div>
+
+  <p>The same mistake surfaced twice. A first attempt to find the gaming
+  group automatically picked whichever group had the highest average anomaly
+  score — and it chose <strong>Minimal Engagers</strong>: people with ₹8,751 of
+  spend across 12 transactions. The most "isolated" people in the data, because
+  they barely did anything at all. Not gamers. Just quiet.</p>
+
+  <p>It was fixed by describing gaming in terms of behaviour instead — qualifies
+  fast, redeems fast, buys near-cash, goes quiet — and ranking the groups on
+  that. It picked the right one immediately.</p>
+
+  <p><strong>Report the failure.</strong> Most portfolio projects only show what
+  worked, which reads as either luck or selective editing. Yours has a real
+  methodological finding: <em>the wrong tool failed for a reason I can
+  articulate.</em> That's worth more than a clean score.</p>
+</section>
+
+<!-- ============ 8 ============ -->
+<section id="s8">
+  <div class="sec-head"><div class="sec-num">09</div><h2>Step five: the main findings</h2></div>
+
+  <p>This is the heart of the analysis: <strong>at what point does the bank have
+  enough information to tell?</strong></p>
+
+  <p>The same kind of model, on the same people, with the same targets —
+  changing only <em>what the model was allowed to see</em>. Click between the
+  two:</p>
+
+  <div class="hz">
+    <div class="hz-btns" role="tablist">
+      <button id="btnL1" class="on" role="tab" aria-selected="true">Layer 1 — signup day</button>
+      <button id="btnL2" role="tab" aria-selected="false">Layer 2 — after 30 days</button>
+    </div>
+    <div class="hz-body">
+      <div style="font-size:.86rem;color:var(--muted);margin-bottom:.2rem">What the model can see</div>
+      <div class="chips" id="hzChips"></div>
+      <div id="hzBars"></div>
+      <p class="cap" id="hzNarr" style="margin-top:1rem"></p>
+    </div>
+  </div>
+
+  <div class="finding">
+    <h3>Finding one — the application form tells us almost nothing</h3>
+    <p>Channel, campaign, age band, income band, region and credit limit
+    together predict gaming at 0.62 on a scale where 0.5 is a coin flip. They
+    explain <strong>9%</strong> of how much a customer will eventually be worth.
+    Ninety-one percent is invisible on signup day.</p>
+    <p>So screening applicants harder would reject good people at nearly the
+    same rate as bad ones. <strong>This is a real result, not a failed
+    model.</strong> Measuring how little can be known is the finding.</p>
+  </div>
+
+  <div class="finding">
+    <h3>Finding two — one month of behaviour changes everything</h3>
+    <p>Add the first 30 days and the ability to predict a customer's value jumps
+    from 9% to <strong>66%</strong>. Gamers become almost completely separable.
+    And 30 days is early — most of the bonus money hasn't gone out the door yet,
+    so there's still time to act.</p>
+    <p><strong>The recommendation:</strong> stop trying to filter at the front
+    door. Watch the first month instead. Change the offer so the bonus needs
+    spending sustained over three months rather than a lump sum, or hold the
+    payout until day 90, or don't count gift cards toward the target.</p>
+  </div>
+
+  <div class="plain">
+    <strong>Be honest about one number.</strong> The Layer 2 gaming score came
+    out at a perfect 1.000. That's too good, and it is worth stating plainly. By
+    day 30, 77% of gamers have hit the target and almost nobody else has, so one
+    column nearly gives the game away. It's not leakage — that's genuinely
+    visible on day 30 — but real bank data would be messier. The defensible
+    reading is <em>"the signal is unambiguous by day 30 in this data"</em>, not
+    <em>"the model is perfect"</em>.
+  </div>
+  <h3 style="margin-top:2.8rem">Finding three &mdash; the offer is the lever, not the channel</h3>
+
+  <p>We assumed some acquisition channels were bringing in worse customers than others.
+  They are not, or not by much. The campaign is doing almost all of the work.</p>
+
+  <div class="heat" id="heat"></div>
+  <p class="cap">Average value per customer. Read down a column, not across a row &mdash;
+  whole campaigns are green or red, while switching channel barely moves the number.</p>
+
+  <div class="kpis">
+    <div class="kpi"><div class="l">Switching channel changes value by</div>
+      <div class="v">&#8377;231&ndash;559</div><div class="s">within the same campaign</div></div>
+    <div class="kpi"><div class="l">Switching campaign changes it by</div>
+      <div class="v">&asymp; &#8377;5,000</div><div class="s">roughly ten times as much</div></div>
+    <div class="kpi good"><div class="l">Returned per &#8377;1 spent</div>
+      <div class="v">&#8377;2.90</div><div class="s">on lean offers</div></div>
+    <div class="kpi bad"><div class="l">Returned per &#8377;1 spent</div>
+      <div class="v">&#8377;0.72</div><div class="s">on rich offers</div></div>
+  </div>
+
+  <div class="finding">
+    <h3>Generous offers do not attract better customers</h3>
+    <p>The lean campaign &mdash; a &#8377;2,000 bonus on a &#8377;45,000 threshold &mdash;
+    makes money through <em>every</em> channel, including affiliate traffic. The generous
+    campaign &mdash; &#8377;12,000 on &#8377;150,000 &mdash; loses money through
+    <em>every</em> channel, including our own branches and referrals from existing
+    customers.</p>
+    <p>A larger bonus does not buy a better customer. It buys someone who will do precisely
+    enough to qualify and then stop.</p>
+  </div>
+
+  <div class="plain">
+    <strong>What this changes.</strong> Before reallocating budget between channels,
+    restructure the offers themselves. That is where the &#8377;5,000 sits.
+  </div>
+</section>
+
+<!-- ============ 9 ============ -->
+<section id="s10">
+  <div class="sec-head"><div class="sec-num">10</div><h2>Step six: turning it into a decision</h2></div>
+
+  <p>Findings are nice. A decision is better. Two numbers are combined for every
+  customer — how much they're predicted to be worth, and how likely they are to
+  be gaming — and everyone is sorted into five buckets:</p>
+
+  <div class="tw">
+  <table>
+    <thead><tr><th>Tier</th><th>What to do</th><th class="n">People</th><th class="n">Actually worth</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Acquire more like this</td><td class="n">36,178</td><td class="n pos">+₹2,117</td></tr>
+      <tr class="hi"><td>2</td><td>Acquire, but watch them early</td><td class="n">32,905</td><td class="n pos">+₹7,936</td></tr>
+      <tr><td>3</td><td>Acquire only on cheap offers</td><td class="n">49,116</td><td class="n neg">−₹335</td></tr>
+      <tr><td>4</td><td>Watch list</td><td class="n">15,741</td><td class="n neg">−₹161</td></tr>
+      <tr><td>5</td><td>Don't target</td><td class="n">66,060</td><td class="n neg">−₹2,950</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Look at tier 2. It has the <em>highest</em> actual value of any tier —
+  ₹7,936 — and an elevated gaming rate. That's not a bug. High value and high
+  risk overlap because both involve spending heavily. A bank that simply
+  rejected everyone who looked risky would be throwing out its most profitable
+  customers. Which is exactly why tier 2's instruction is "monitor", not
+  "reject".</p>
+
+  <h3 style="margin-top:2rem">One technical point worth knowing</h3>
+
+  <p>Ranking customers by predicted value needs a prediction for everyone — but
+  the model was trained on most of them, and a model always looks smarter on
+  data it has already seen. So we used <strong>out-of-fold prediction</strong>:
+  split everyone into five parts, and predict each part using a model trained
+  only on the other four. Every customer gets scored by a model that never saw
+  them. The honest score came out at 0.605, very close to the 0.658 you got on
+  properly held-out data — which tells you the model generalises.</p>
+
+  <div class="plain">
+    <strong>The caveat you must state.</strong> Dropping tier 5 lifts the modelled
+    profit from ₹12.4 crore to ₹31.9 crore. That looks spectacular, and you must
+    not oversell it. Tier 5 is a third of the entire customer base and only 26%
+    of it is gamers — so most of that gain is just from not paying bonuses to
+    low-value customers in general, not from catching gaming. No bank declines a
+    third of applicants. It sizes the opportunity; it doesn't promise it.
+  </div>
+</section>
+
+<!-- ============ 10 ============ -->
+<section id="s11">
+  <div class="sec-head"><div class="sec-num">11</div><h2>Step seven: letting an AI write the summary</h2></div>
+
+  <p>The last piece takes all your results and has a language model write the
+  memo a manager would actually read.</p>
+
+  <p>The important design choice: <strong>the AI never touches the data.</strong>
+  It doesn't see a single transaction and it does no arithmetic. Every number is
+  calculated by your Spark and scikit-learn code first, packed into a small JSON
+  file of 86 facts, and handed over. The model's only job is turning facts into
+  sentences.</p>
+
+  <p>Then you check its work. Every number in the text it produces is pulled out
+  and matched against those 86 facts. Anything that doesn't match gets
+  flagged.</p>
+
+  <div class="plain">
+    <strong>It caught a real one.</strong> An early run wrote <em>"High-Value
+    Core contains 8451"</em>. The true figure is 84,517 — the model dropped a
+    digit. It reads perfectly fluently and you'd never spot it by eye in a page
+    of prose. The check caught it instantly.
+    <br><br>
+    That's the difference between "I called an API" and "I deployed a language
+    model with a verification layer". Only one of those is worth talking about.
+  </div>
+
+  <p>And you should also say what it <em>can't</em> do. The check confirms the
+  numbers are real. It can't tell whether they're the <em>right</em> numbers to
+  highlight — an early version rambled about marketing channels when the
+  analysis showed channels barely matter. Accuracy and judgement are different
+  problems, and only one of them can be automated.</p>
+
+
+</section>
+
+<!-- ============ recommend ============ -->
+<section id="s12">
+  <div class="sec-head"><div class="sec-num">12</div><h2>What we recommend</h2></div>
+
+  <p>Four changes, all of which act inside the window where the behaviour is actually
+  visible. None of them requires declining anybody.</p>
+
+  <div class="steps">
+    <div class="stp"><div>
+      <div class="t">Restructure the offers</div>
+      <div class="d">Replace lump-sum spending targets with sustained spend across three
+      months. A target that cannot be cleared in ten days cannot be gamed in ten days.</div>
+    </div></div>
+    <div class="stp"><div>
+      <div class="t">Exclude near-cash categories from qualifying spend</div>
+      <div class="d">Gift cards, money transfers and wholesale clubs are the mechanism.
+      Removing them removes most of the route.</div>
+    </div></div>
+    <div class="stp"><div>
+      <div class="t">Hold the bonus payout to day 90</div>
+      <div class="d">Paying at qualification means paying before we know anything. A short
+      delay moves the payout to the point where behaviour is visible.</div>
+    </div></div>
+    <div class="stp"><div>
+      <div class="t">Monitor month one rather than screening at the door</div>
+      <div class="d">Track early-tenure behaviour on new accounts instead of tightening
+      approval criteria that we now know carry almost no signal.</div>
+    </div></div>
+  </div>
+
+  <div class="alert">
+    <strong>Do not simply reject everyone who looks risky.</strong> The second tier is the
+    most valuable group in the portfolio and carries elevated risk signals &mdash; because
+    heavy spending is what makes a customer valuable, and heavy early spending is what makes
+    them resemble a bonus-seeker. A blunt screen would decline our best customers alongside
+    the worst.
+  </div>
+</section>
+
+<!-- ============ limits ============ -->
+<section id="s13">
+  <div class="sec-head"><div class="sec-num">13</div><h2>What this cannot tell you</h2></div>
+
+  <p>Three limits, stated plainly, because the analysis is worth acting on only if its
+  boundaries are understood.</p>
+
+  <div class="finding">
+    <h3>The portfolio is simulated</h3>
+    <p>Real card transaction data cannot be shared, so this book was generated to mirror
+    acquisition economics. Customer types were built with known behavioural patterns, so the
+    separation here is cleaner than production would be. Treat these results as an upper
+    bound on what is achievable, not an estimate of it.</p>
+  </div>
+
+  <div class="finding">
+    <h3>The &#8377;19.5 crore is a bound, not a forecast</h3>
+    <p>Removing the bottom group entirely would lift modelled value from &#8377;12.4 crore
+    to &#8377;31.9 crore. But that group is a third of all customers and only a quarter of
+    it is bonus-seekers, so most of the gain comes from not paying bonuses to low-value
+    customers generally. No issuer declines a third of applicants. It sizes the opportunity;
+    it does not promise it.</p>
+  </div>
+
+  <div class="finding">
+    <h3>Changing the offer will change behaviour</h3>
+    <p>These figures describe customers acquired under the current terms. Restructuring the
+    offer changes who applies and how they act, so the effect of the recommendations cannot
+    be read directly off this analysis. A ninety-day trial on a single campaign would settle
+    it.</p>
+  </div>
+
+  <footer>
+    <p>The whole thing, in order: build a realistic bank → clean 27 million
+    messy rows → squash them into 200,000 customer profiles across three time
+    windows → group people by behaviour → catch the gamers → measure how early
+    they could have been caught → turn it into a targeting policy → have an AI
+    write the memo and check its numbers.</p>
+    <p><strong>In one line.</strong> We cannot tell who will game an offer from
+    their application. We can tell almost perfectly from their first month. So
+    the fix is the offer and the first thirty days — not the front door.</p>
+    <p style="margin-top:1.7rem;padding-top:1.2rem;border-top:1px solid var(--rule)">
+      <strong style="color:var(--ink);font-size:.95rem">Ashish Gaba</strong><br>
+      Analysis, pipeline and reporting
+    </p>
+  </footer>
+</section>
+
+</main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- jargon toggles ---------- */
+  document.querySelectorAll(".j").forEach(function(btn){
+    btn.setAttribute("aria-expanded","false");
+    btn.addEventListener("click",function(){
+      var def=document.getElementById("d-"+btn.dataset.t);
+      if(!def) return;
+      var open=def.classList.toggle("open");
+      btn.setAttribute("aria-expanded",open?"true":"false");
+    });
+  });
+
+  /* ---------- rail active state ---------- */
+  var links=[].slice.call(document.querySelectorAll(".rail a"));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute("href"));});
+  function markActive(){
+    var best=0;
+    secs.forEach(function(s,i){
+      if(s && s.getBoundingClientRect().top<160) best=i;
+    });
+    links.forEach(function(a,i){a.classList.toggle("on",i===best);});
+  }
+  window.addEventListener("scroll",markActive,{passive:true});
+  markActive();
+
+  /* ---------- simulator ---------- */
+  var W=700,H=210,X0=52,X1=685,Y0=175,Y1=14,MAXD=365,MAXV=90000,TARGET=50000;
+
+  function gamerSpend(d){
+    // fast sprint to ~62k by day 12, tiny trickle after, then silence
+    if(d<=12) return 62000*Math.pow(d/12,0.85);
+    if(d<=40) return 62000+3200*((d-12)/28);
+    return 65200;
+  }
+  function steadySpend(d){
+    // even accumulation, slight acceleration, ~86k by year end
+    return 86000*Math.pow(d/MAXD,1.04);
+  }
+  var G_QUAL=null,S_QUAL=null;
+  for(var i=0;i<=MAXD;i++){
+    if(G_QUAL===null&&gamerSpend(i)>=TARGET) G_QUAL=i;
+    if(S_QUAL===null&&steadySpend(i)>=TARGET) S_QUAL=i;
+  }
+  var G_REDEEM=G_QUAL+3, S_REDEEM=S_QUAL+41, G_LAST=40;
+
+  function sx(d){return X0+(X1-X0)*(d/MAXD);}
+  function sy(v){return Y0-(Y0-Y1)*Math.min(v,MAXV)/MAXV;}
+
+  function buildPath(fn,upto){
+    var pts=[];
+    for(var d=0;d<=upto;d+=2) pts.push(sx(d).toFixed(1)+","+sy(fn(d)).toFixed(1));
+    if(upto%2!==0) pts.push(sx(upto).toFixed(1)+","+sy(fn(upto)).toFixed(1));
+    return pts.length?"M"+pts.join("L"):"";
+  }
+
+  var slider=document.getElementById("daySlider");
+  var els={
+    day:document.getElementById("dayNum"),
+    pg:document.getElementById("pathGam"), ps:document.getElementById("pathSte"),
+    dg:document.getElementById("dotGam"), ds:document.getElementById("dotSte"),
+    now:document.getElementById("nowLine"),
+    gS:document.getElementById("gSpend"), sS:document.getElementById("sSpend"),
+    gD:document.getElementById("gDorm"), sD:document.getElementById("sDorm"),
+    gL:document.getElementById("gLiq"), sL:document.getElementById("sLiq"),
+    gB:document.getElementById("gBadges"), sB:document.getElementById("sBadges"),
+    narr:document.getElementById("simNarr")
+  };
+  document.getElementById("threshLine").setAttribute("y1",sy(TARGET));
+  document.getElementById("threshLine").setAttribute("y2",sy(TARGET));
+
+  function inr(n){return "\u20B9"+Math.round(n).toLocaleString("en-IN");}
+
+  function badges(qual,redeem,dorm,d){
+    var out="";
+    if(!qual) return '<span class="badge no">not yet qualified</span>';
+    out+='<span class="badge q">qualified day '+qual+'</span> ';
+    if(redeem) out+='<span class="badge r">claimed \u20B95,000 day '+redeem+'</span> ';
+    if(dorm>60) out+='<span class="badge d">dormant '+dorm+' days</span>';
+    return out;
+  }
+
+  function narrate(d){
+    if(d===0) return "Both just signed up. Right now they look identical to the bank.";
+    if(d<G_QUAL) return "Priya is spending hard and fast. Rohan is using the card normally. Already a difference \u2014 but is it suspicious, or just a big month?";
+    if(d<G_REDEEM) return "Day "+G_QUAL+": Priya has hit \u20B950,000. Rohan is barely a fifth of the way. This is the single strongest signal in the whole dataset.";
+    if(d<45) return "Priya claimed her \u20B95,000 within three days of qualifying. She was waiting for it. Rohan hasn't qualified and isn't thinking about it.";
+    if(d<S_QUAL) return "Priya has stopped using the card entirely. The bank has paid \u20B96,500 and is earning nothing. Rohan is still spending steadily.";
+    if(d<S_REDEEM) return "Day "+S_QUAL+": Rohan finally crosses \u20B950,000 \u2014 " + Math.round(S_QUAL/G_QUAL) + "x slower than Priya. He wasn't chasing the bonus; he was just living.";
+    return "End of year. Rohan claimed his bonus " + (S_REDEEM-S_QUAL) + " days after qualifying and kept spending. Priya went quiet after day 40. The bank made money on one of them.";
+  }
+
+  function render(){
+    var d=+slider.value;
+    els.day.innerHTML=d+'<span>days since signup</span>';
+    els.pg.setAttribute("d",buildPath(gamerSpend,d));
+    els.ps.setAttribute("d",buildPath(steadySpend,d));
+
+    var gv=gamerSpend(d), sv=steadySpend(d);
+    els.dg.setAttribute("cx",sx(d)); els.dg.setAttribute("cy",sy(gv));
+    els.ds.setAttribute("cx",sx(d)); els.ds.setAttribute("cy",sy(sv));
+    els.dg.style.opacity=d>0?1:0; els.ds.style.opacity=d>0?1:0;
+    els.now.setAttribute("x1",sx(d)); els.now.setAttribute("x2",sx(d));
+
+    els.gS.textContent=inr(gv); els.sS.textContent=inr(sv);
+
+    var gDorm=Math.max(0,d-G_LAST), sDorm=0;
+    els.gD.textContent=gDorm; els.sD.textContent=sDorm;
+    els.gL.textContent=d>3?"48%":"\u2014";
+    els.sL.textContent=d>3?"23%":"\u2014";
+
+    els.gB.innerHTML=badges(d>=G_QUAL?G_QUAL:null, d>=G_REDEEM?G_REDEEM:null, gDorm, d);
+    els.sB.innerHTML=badges(d>=S_QUAL?S_QUAL:null, d>=S_REDEEM?S_REDEEM:null, sDorm, d);
+    els.narr.textContent=narrate(d);
+  }
+  slider.addEventListener("input",render);
+  render();
+
+  /* ---------- horizon toggle ---------- */
+  var HZ={
+    L1:{
+      chips:[["signup channel",0],["which campaign",0],["offer size",0],["age band",0],
+             ["income band",0],["region",0],["credit limit",0]],
+      bars:[["Spotting gamers",62,"0.62 \u2014 barely better than a coin flip"],
+            ["Predicting value",9,"9% of what makes a customer valuable"]],
+      narr:"Everything on the application form. No spending data exists yet \u2014 the customer hasn't bought anything. The model is close to guessing."
+    },
+    L2:{
+      chips:[["signup channel",0],["which campaign",0],["offer size",0],["age band",0],
+             ["income band",0],["region",0],["credit limit",0],
+             ["spend in 30 days",1],["how many purchases",1],["gift-card share",1],
+             ["category spread",1],["days quiet",1],["hit the target yet?",1],
+             ["claimed the bonus?",1]],
+      bars:[["Spotting gamers",100,"effectively perfect \u2014 see the caveat below"],
+            ["Predicting value",66,"66% \u2014 seven times better than day one"]],
+      narr:"Same form data, plus one month of actual behaviour. The blue chips are the new information. That's the entire difference \u2014 and it changes everything."
+    }
+  };
+  function drawHz(key){
+    var cfg=HZ[key];
+    document.getElementById("hzChips").innerHTML=cfg.chips.map(function(c){
+      return '<span class="chip'+(c[1]?" beh":"")+'">'+c[0]+'</span>';
+    }).join("");
+    document.getElementById("hzBars").innerHTML=cfg.bars.map(function(b){
+      return '<div class="bar-row"><div class="bar-lab">'+b[0]+'</div>'+
+             '<div class="bar-track"><div class="bar-fill" style="width:'+b[1]+'%"></div></div>'+
+             '<div class="bar-val">'+b[1]+'%</div></div>'+
+             '<div style="font-size:.78rem;color:var(--muted);margin:-.2rem 0 .7rem 138px">'+b[2]+'</div>';
+    }).join("");
+    document.getElementById("hzNarr").textContent=cfg.narr;
+    var b1=document.getElementById("btnL1"), b2=document.getElementById("btnL2");
+    b1.classList.toggle("on",key==="L1"); b2.classList.toggle("on",key==="L2");
+    b1.setAttribute("aria-selected",key==="L1"); b2.setAttribute("aria-selected",key==="L2");
+  }
+  document.getElementById("btnL1").addEventListener("click",function(){drawHz("L1");});
+  document.getElementById("btnL2").addEventListener("click",function(){drawHz("L2");});
+  drawHz("L1");
+
+  /* ---------- heat grid ---------- */
+  var CH=["Affiliate","Paid search","Direct mail","Branch","Referral"];
+  var CAMP=[["Lean offer","\u20B92,000 on \u20B945,000"],
+            ["Mid offer","\u20B95,000 on \u20B960,000"],
+            ["Rich offer","\u20B912,000 on \u20B9150,000"]];
+  var HV=[[2959,586,-2121],[3030,774,-1818],[2976,858,-1774],
+          [2799,973,-1562],[2933,853,-1476]];
+  function shade(v){
+    if(v>0){var t=Math.min(1,v/3100);
+      return "rgb("+Math.round(232-114*t)+","+Math.round(240-133*t)+","+Math.round(235-156*t)+")";}
+    var u=Math.min(1,Math.abs(v)/2200);
+    return "rgb("+Math.round(240-72*u)+","+Math.round(232-182*u)+","+Math.round(230-185*u)+")";
+  }
+  var heatEl=document.getElementById("heat");
+  if(heatEl){
+    var h='<div class="hh"></div>';
+    CAMP.forEach(function(c){
+      h+='<div class="hh">'+c[0]+'<br><span style="font-size:.67rem">'+c[1]+'</span></div>';});
+    CH.forEach(function(ch,i){
+      h+='<div class="rl">'+ch+'</div>';
+      HV[i].forEach(function(v){
+        var light=Math.abs(v)>1400;
+        h+='<div class="cell" style="background:'+shade(v)+';color:'+(light?"#fff":"#3D4052")+'">'+
+           (v>0?"+":"\u2212")+"\u20B9"+Math.abs(v).toLocaleString("en-IN")+'</div>';
+      });
+    });
+    heatEl.innerHTML=h;
+  }
+})();
+</script>
+</body>
+</html>

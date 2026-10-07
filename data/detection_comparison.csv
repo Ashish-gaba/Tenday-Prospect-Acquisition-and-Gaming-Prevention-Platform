@@ -1,0 +1,4 @@
+method,flagged,precision,recall,f1
+IsolationForest,30000,0.429,0.452,0.44
+KMeans segment,27871,0.998,0.977,0.987
+Both (AND),12301,0.997,0.431,0.601

@@ -1,0 +1,7 @@
+segment,segment_name,customers,avg_spend,avg_txns,concentration,liquid_share,front_loading,dormancy_days,days_to_qualify,redemption_lag,avg_net_value,total_net_value_cr,bonus_paid_cr
+1,High-Value Core,84517,406353.0,237.0,0.146,0.23,0.059,1.0,154.2,46.0,3154.0,26.65,30.97
+3,Borderline Opportunists,5040,26007.0,22.0,0.354,0.256,0.262,100.0,24.1,4.6,-1091.0,-0.55,0.14
+5,Minimal Engagers,9734,8751.0,12.0,0.392,0.226,0.181,84.0,,,-1133.0,-1.1,0.0
+2,Early Churners,27718,48766.0,56.0,0.282,0.231,0.522,209.0,96.4,46.1,-708.0,-1.96,1.07
+0,Casual Regulars,45120,44216.0,58.0,0.224,0.231,0.082,7.0,260.8,44.0,-709.0,-3.2,1.31
+4,Bonus Opportunists,27871,262462.0,73.0,0.509,0.482,0.778,210.0,9.8,2.5,-2676.0,-7.46,17.74
