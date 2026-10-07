@@ -13,7 +13,7 @@ the difference becomes visible.**
 The name comes from the answer: a bonus-seeker clears a spending threshold in
 **ten days** that takes a real customer five months.
 
-**[Read the report →](https://ashish-gaba.github.io/tenday/)** · [Notebooks](notebooks/) · [Explainer](Tenday-explainer.html)
+**📑[Read the report](https://ashish-gaba.github.io/Tenday-Prospect-Acquisition-and-Gaming-Prevention-Platform/)**
 
 *200,000 customers · 26.7M transactions · PySpark on Databricks*
 
